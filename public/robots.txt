@@ -1,0 +1,8 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Netlify preview deployments: avoid indexing non-production hosts by setting
+# a noindex meta or Basic Auth on branch deploys in the Netlify UI if needed.
+
+Sitemap: https://mosslabs.co.za/sitemap.xml

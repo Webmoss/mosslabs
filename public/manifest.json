@@ -1,0 +1,17 @@
+{
+  "name": "Moss Labs",
+  "short_name": "Moss Labs",
+  "description": "Web, ecommerce, SEO, and AI implementation for growing teams.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#030F0A",
+  "theme_color": "#030F0A",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
