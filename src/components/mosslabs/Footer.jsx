@@ -1,5 +1,6 @@
 // import { motion } from 'framer-motion';
 // import { Github, Twitter, Linkedin, Instagram, Code2 } from 'lucide-react';
+import { Code2 } from 'lucide-react';
 
 const footerLinks = {
   Services: ['Website Design', 'Hosting', 'Ecommerce', 'SEO', 'AI Implementation', 'Custom Builds'],
