@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion';
-import { Github, Twitter, Linkedin, Instagram, Code2 } from 'lucide-react';
+// import { motion } from 'framer-motion';
+// import { Github, Twitter, Linkedin, Instagram, Code2 } from 'lucide-react';
 
 const footerLinks = {
   Services: ['Website Design', 'Hosting', 'Ecommerce', 'SEO', 'AI Implementation', 'Custom Builds'],
@@ -7,12 +7,12 @@ const footerLinks = {
   Legal: ['Privacy Policy', 'Terms of Service', 'Cookie Policy'],
 };
 
-const socials = [
-  { Icon: Twitter, href: '#', label: 'Twitter' },
-  { Icon: Linkedin, href: '#', label: 'LinkedIn' },
-  { Icon: Instagram, href: '#', label: 'Instagram' },
-  { Icon: Github, href: '#', label: 'GitHub' },
-];
+// const socials = [
+//   { Icon: Twitter, href: '#', label: 'Twitter' },
+//   { Icon: Linkedin, href: '#', label: 'LinkedIn' },
+//   { Icon: Instagram, href: '#', label: 'Instagram' },
+//   { Icon: Github, href: '#', label: 'GitHub' },
+// ];
 
 export default function Footer() {
   const scrollTo = (id) => {
@@ -56,9 +56,9 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-moss-mist text-sm leading-relaxed max-w-xs mb-6">
-              A South African digital agency cultivating powerful online presences — from simple hosting to full AI implementations.
+              A digital agency cultivating powerful online presences — from simple hosting to full AI implementations.
             </p>
-            <div className="flex items-center gap-3">
+            {/* <div className="flex items-center gap-3">
               {socials.map(({ Icon, href, label }) => (
                 <motion.a
                   key={label}
@@ -71,7 +71,7 @@ export default function Footer() {
                   <Icon size={15} />
                 </motion.a>
               ))}
-            </div>
+            </div> */}
           </div>
 
           {/* Links */}
@@ -106,12 +106,12 @@ export default function Footer() {
         {/* Bottom */}
         <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-[rgba(34,197,94,0.08)] gap-4">
           <p className="text-moss-mist font-mono text-xs">
-            © 2026 MossLabs. All rights reserved. Cultivated in South Africa. 🌿
+            © 2026 MossLabs. All rights reserved.
           </p>
-          <div className="flex items-center gap-2">
+          {/* <div className="flex items-center gap-2">
             <div className="w-1.5 h-1.5 rounded-full bg-moss-neon pulse-glow" />
             <span className="text-moss-mist font-mono text-xs">All Systems Operational</span>
-          </div>
+          </div> */}
         </div>
       </div>
     </footer>
