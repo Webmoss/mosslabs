@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "stop": "sh -c 'for p in 5173 5174; do lsof -ti :$p 2>/dev/null | xargs kill -9 2>/dev/null; done; true'",
+    "dev:netlify": "netlify dev",
+    "stop": "sh -c 'for p in 5173 5174 8888; do lsof -ti :$p 2>/dev/null | xargs kill -9 2>/dev/null; done; true'",
     "dev:clean": "npm run stop && vite",
     "build": "vite build",
     "lint": "eslint . --quiet",

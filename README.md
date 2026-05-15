@@ -18,14 +18,21 @@ npm run dev:clean
 
 That stops anything on ports 5173/5174 and starts Vite again.
 
-The contact form calls `/.netlify/functions/contact`. With plain `npm run dev`, that endpoint is not available unless you proxy it. Use **Netlify CLI** for a full stack local run:
+### Contact form (needs Netlify Functions + Resend)
+
+1. Copy `.env.example` to `.env` and set `RESEND_API_KEY`, `RESEND_FROM`, and optionally `CONTACT_INTERNAL_EMAIL`.
+2. Install Netlify CLI: `npm i -g netlify-cli`
+3. Run the full stack (site + contact API):
 
 ```bash
-npm i -g netlify-cli
-netlify dev
+npm run dev:netlify
 ```
 
-Copy `.env.example` to `.env` for optional `VITE_CONTACT_FUNCTION_URL` overrides.
+Open the URL Netlify prints (usually **http://localhost:8888**). The contact form will work there.
+
+**Do not** set `VITE_CONTACT_FUNCTION_URL=http://localhost:8888/...` unless you know you need it. A relative path is used by default.
+
+**Split setup (optional):** Terminal 1: `npm run dev:netlify` · Terminal 2: `npm run dev` (Vite proxies `/.netlify/functions` to port 8888).
 
 ## Netlify deployment
 

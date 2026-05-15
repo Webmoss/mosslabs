@@ -13,6 +13,13 @@ export default defineConfig({
     strictPort: false,
     host: true,
     open: '/',
+    // Forward contact API to Netlify Dev when functions run on :8888 (see npm run dev:netlify).
+    proxy: {
+      '/.netlify/functions': {
+        target: 'http://127.0.0.1:8888',
+        changeOrigin: true,
+      },
+    },
   },
   resolve: {
     alias: {
