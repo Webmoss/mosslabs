@@ -2,6 +2,10 @@
   command = "npm run build"
   publish = "dist"
 
+# Public contact email is intentional in the UI and emails — not a leaked secret.
+[build.environment]
+  SECRETS_SCAN_OMIT_KEYS = "RESEND_FROM,CONTACT_INTERNAL_EMAIL"
+
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"

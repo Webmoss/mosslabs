@@ -20,7 +20,7 @@ That stops anything on ports 5173/5174 and starts Vite again.
 
 ### Contact form (needs Netlify Functions + Resend)
 
-1. Copy `.env.example` to `.env` and set `RESEND_API_KEY`, `RESEND_FROM`, and optionally `CONTACT_INTERNAL_EMAIL`.
+1. Copy `.env.example` to `.env` and set `RESEND_API_KEY`, `RESEND_FROM`, `PUBLIC_CONTACT_EMAIL`, `VITE_PUBLIC_CONTACT_EMAIL`, and optionally `CONTACT_INTERNAL_EMAIL`.
 2. Install Netlify CLI: `npm i -g netlify-cli`
 3. Run the full stack (site + contact API):
 
@@ -38,9 +38,13 @@ Open the URL Netlify prints (usually **http://localhost:8888**). The contact for
 
 1. Connect the repo in Netlify; the included `netlify.toml` runs `npm run build` and publishes `dist`.
 2. Set environment variables (Site settings → Environment variables):
-   - `RESEND_API_KEY` — from [Resend](https://resend.com)
-   - `RESEND_FROM` — verified sender, e.g. `Moss Labs <info@mosslabs.co.za>`
-   - `CONTACT_INTERNAL_EMAIL` — optional; team inbox for a copy of each inquiry (and `replyTo` on the client confirmation)
+   - `RESEND_API_KEY` — from [Resend](https://resend.com) (keep secret)
+   - `RESEND_FROM` — verified sender, e.g. `Moss Labs <info@yourdomain.com>`
+   - `VITE_PUBLIC_CONTACT_EMAIL` — shown on the site, e.g. `info@yourdomain.com`
+   - `PUBLIC_CONTACT_EMAIL` — same address; used in confirmation emails
+   - `CONTACT_INTERNAL_EMAIL` — optional inbox for inquiry copies (can match the address above)
+
+   Mark only `RESEND_API_KEY` as secret. The repo configures `SECRETS_SCAN_OMIT_KEYS` for sender/inbox vars when they appear in public UI or email templates.
 
 ## Scripts
 

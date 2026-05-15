@@ -7,9 +7,10 @@ function escapeHtml(s) {
     .replace(/'/g, '&#039;');
 }
 
-/** @param {{ name: string; email: string; company?: string; service_interest?: string; message: string; budget?: string }} p */
+/** @param {{ name: string; email: string; company?: string; service_interest?: string; message: string; budget?: string; supportEmail?: string }} p */
 export function buildClientConfirmationEmail(p) {
   const name = escapeHtml(p.name);
+  const supportEmail = escapeHtml(p.supportEmail || 'our team');
   const subject = 'We received your message — Moss Labs';
 
   const html = `<!DOCTYPE html>
@@ -33,7 +34,7 @@ export function buildClientConfirmationEmail(p) {
           <tr>
             <td style="padding:8px 28px 28px 28px;font-size:15px;line-height:1.6;color:#94A3B8;">
               <p style="margin:0 0 16px 0;">We have your note and will reply within <strong style="color:#E2F2ED;">24 hours</strong> on business days.</p>
-              <p style="margin:0 0 16px 0;">If your request is urgent, reply to this email or write us at <a href="mailto:info@mosslabs.co.za" style="color:#22C55E;">info@mosslabs.co.za</a>.</p>
+              <p style="margin:0 0 16px 0;">If your request is urgent, reply to this email${p.supportEmail ? ` or write us at <a href="mailto:${supportEmail}" style="color:#22C55E;">${supportEmail}</a>` : ''}.</p>
               <p style="margin:0;">— The Moss Labs team</p>
             </td>
           </tr>
@@ -54,7 +55,7 @@ export function buildClientConfirmationEmail(p) {
 
 We received your message and will reply within 24 hours on business days.
 
-If your request is urgent, email info@mosslabs.co.za
+If your request is urgent, email ${p.supportEmail || 'our team'}
 
 — Moss Labs
 `;

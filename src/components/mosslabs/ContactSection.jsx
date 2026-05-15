@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Mail, MapPin, ArrowRight, CheckCircle } from 'lucide-react';
 import SectionHeader from '@/components/mosslabs/SectionHeader';
 import { submitContactForm } from '@/api/contact';
+import { CONTACT_EMAIL } from '@/config/site';
 
 const serviceOptions = [
   'Website Design', 'Hosting', 'Ecommerce', 'SEO',
@@ -63,9 +64,13 @@ export default function ContactSection() {
                 <Mail size={18} className="text-moss-neon" />
               </div>
               <div className="font-mono text-xs text-moss-mist uppercase tracking-widest mb-1">Email</div>
-              <a href="mailto:info@mosslabs.co.za" className="text-moss-dew hover:text-moss-neon transition-colors">
-                info@mosslabs.co.za
-              </a>
+              {CONTACT_EMAIL ? (
+                <a href={`mailto:${CONTACT_EMAIL}`} className="text-moss-dew hover:text-moss-neon transition-colors">
+                  {CONTACT_EMAIL}
+                </a>
+              ) : (
+                <span className="text-moss-dew">Contact us via the form</span>
+              )}
             </div>
 
             <div className="glass-card gradient-border rounded-2xl p-6">

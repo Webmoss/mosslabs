@@ -24,6 +24,15 @@ function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
+function getSupportEmail() {
+  if (process.env.PUBLIC_CONTACT_EMAIL) {
+    return process.env.PUBLIC_CONTACT_EMAIL.trim();
+  }
+  const from = process.env.RESEND_FROM || '';
+  const match = from.match(/<([^>]+)>/);
+  return match ? match[1].trim() : '';
+}
+
 export const handler = async (event) => {
   if (event.httpMethod === 'OPTIONS') {
     return { statusCode: 204, headers: { 'Access-Control-Allow-Origin': '*' }, body: '' };
@@ -69,6 +78,8 @@ export const handler = async (event) => {
 
   const resend = new Resend(apiKey);
 
+  const supportEmail = getSupportEmail();
+
   const clientMail = buildClientConfirmationEmail({
     name,
     email,
@@ -76,6 +87,7 @@ export const handler = async (event) => {
     service_interest,
     message,
     budget,
+    supportEmail,
   });
 
   const sendClient = await resend.emails.send({
