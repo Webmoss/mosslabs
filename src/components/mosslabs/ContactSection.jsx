@@ -63,8 +63,8 @@ export default function ContactSection() {
                 <Mail size={18} className="text-moss-neon" />
               </div>
               <div className="font-mono text-xs text-moss-mist uppercase tracking-widest mb-1">Email</div>
-              <a href="mailto:hello@mosslabs.co.za" className="text-moss-dew hover:text-moss-neon transition-colors">
-                hello@mosslabs.co.za
+              <a href="mailto:info@mosslabs.co.za" className="text-moss-dew hover:text-moss-neon transition-colors">
+                info@mosslabs.co.za
               </a>
             </div>
 

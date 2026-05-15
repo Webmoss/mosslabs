@@ -19,7 +19,7 @@ export async function submitContactForm(payload) {
     const devHint = import.meta.env.DEV
       ? ' Start the API with: npm run dev:netlify (then use the URL it prints, usually http://localhost:8888).'
       : '';
-    throw new Error(`Could not reach the server.${devHint} Or email hello@mosslabs.co.za directly.`);
+    throw new Error(`Could not reach the server.${devHint} Or email info@mosslabs.co.za directly.`);
   }
 
   const data = await res.json().catch(() => ({}));

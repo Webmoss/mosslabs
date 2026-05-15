@@ -39,7 +39,7 @@ Open the URL Netlify prints (usually **http://localhost:8888**). The contact for
 1. Connect the repo in Netlify; the included `netlify.toml` runs `npm run build` and publishes `dist`.
 2. Set environment variables (Site settings → Environment variables):
    - `RESEND_API_KEY` — from [Resend](https://resend.com)
-   - `RESEND_FROM` — verified sender, e.g. `Moss Labs <hello@mosslabs.co.za>`
+   - `RESEND_FROM` — verified sender, e.g. `Moss Labs <info@mosslabs.co.za>`
    - `CONTACT_INTERNAL_EMAIL` — optional; team inbox for a copy of each inquiry (and `replyTo` on the client confirmation)
 
 ## Scripts
