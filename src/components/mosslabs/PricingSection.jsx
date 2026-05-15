@@ -21,7 +21,7 @@ const packages = [
       'Email Support',      
     ],
     cta: 'Get Started',
-    highlighted: false,
+    highlighted: true,
   },
   {
     name: 'Ecommerce',
@@ -41,7 +41,7 @@ const packages = [
       'Priority Support',
     ],
     cta: 'Launch Your Store',
-    highlighted: true,
+    highlighted: false,
   },
 ];
 
