@@ -138,8 +138,7 @@ export default function HeroSection() {
             transition={{ duration: 0.7, delay: 0.7 }}
             className="text-moss-mist text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed text-pretty"
           >
-            We grow your digital presence from the ground up — websites, ecommerce, AI automation, 
-            and SEO engineered for sustainable growth.
+            We grow your digital presence from the ground up — websites, hosting, ecommerce, SEO and AI automation engineered for sustainable growth.
           </motion.p>
 
           {/* CTAs */}
@@ -155,7 +154,7 @@ export default function HeroSection() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.97 }}
             >
-              Start Your Project
+              Get in touch
               <ArrowRight size={16} />
             </motion.button>
             <motion.button

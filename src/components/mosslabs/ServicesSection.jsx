@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Globe, Server, ShoppingCart, Search, Bot, Code2, ArrowRight } from 'lucide-react';
 import SectionHeader from '@/components/mosslabs/SectionHeader';
 
@@ -54,26 +53,24 @@ const services = [
   },
 ];
 
-function ServiceSlab({ service, isActive, onClick, index }) {
+function ServiceSlab({ service, index }) {
   const Icon = service.icon;
 
   return (
     <motion.div
-      layout
-      onClick={onClick}
-      className={`glass-card gradient-border cursor-pointer overflow-hidden transition-all duration-500 ${
-        isActive ? 'col-span-2' : 'col-span-1'
-      }`}
-      style={{
-        borderColor: isActive ? `rgba(34,197,94,0.35)` : undefined,
-        boxShadow: isActive ? `0 0 40px rgba(34,197,94,0.1)` : undefined,
-      }}
+      className="glass-card gradient-border overflow-hidden h-full"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: index * 0.08 }}
+      viewport={{ once: true }}
       whileHover={{ y: -4 }}
     >
-      <div className="p-6 md:p-8">
+      <div className="p-6 md:p-8 flex flex-col h-full">
         <div className="flex items-start justify-between mb-4">
-          <div className={`w-12 h-12 rounded-xl flex items-center justify-center`}
-            style={{ background: `rgba(34,197,94,0.1)`, border: `1px solid rgba(34,197,94,0.2)` }}>
+          <div
+            className="w-12 h-12 rounded-xl flex items-center justify-center"
+            style={{ background: 'rgba(34,197,94,0.1)', border: '1px solid rgba(34,197,94,0.2)' }}
+          >
             <Icon size={22} style={{ color: service.color }} />
           </div>
           <span className="font-mono text-xs text-moss-mist">{service.tag}</span>
@@ -82,87 +79,49 @@ function ServiceSlab({ service, isActive, onClick, index }) {
         <h3 className="font-space font-bold text-moss-dew text-xl mb-2">{service.title}</h3>
         <p className="text-moss-mist text-sm leading-relaxed">{service.short}</p>
 
-        <AnimatePresence>
-          {isActive && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
-              className="mt-6"
-            >
-              <div className="text-xs font-mono text-moss-neon uppercase tracking-widest mb-3">Deliverables</div>
-              <ul className="space-y-2">
-                {service.deliverables.map((d, i) => (
-                  <motion.li
-                    key={d}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.06 }}
-                    className="flex items-center gap-2 text-sm text-moss-dew"
-                  >
-                    <div className="w-1 h-1 rounded-full bg-moss-neon flex-shrink-0" />
-                    {d}
-                  </motion.li>
-                ))}
-              </ul>
-              <motion.button
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.4 }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
-                }}
-                className="mt-6 flex items-center gap-2 text-moss-neon text-sm font-space font-medium hover:gap-3 transition-all"
-              >
-                Get a Quote <ArrowRight size={14} />
-              </motion.button>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <div className="mt-6 flex-1">
+          <div className="text-xs font-mono text-moss-neon uppercase tracking-widest mb-3">Deliverables</div>
+          <ul className="space-y-2">
+            {service.deliverables.map((d) => (
+              <li key={d} className="flex items-center gap-2 text-sm text-moss-dew">
+                <div className="w-1 h-1 rounded-full bg-moss-neon flex-shrink-0" />
+                {d}
+              </li>
+            ))}
+          </ul>
+          <button
+            type="button"
+            onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
+            className="mt-6 flex items-center gap-2 text-moss-neon text-sm font-space font-medium hover:gap-3 transition-all"
+          >
+            Get a Quote <ArrowRight size={14} />
+          </button>
+        </div>
       </div>
     </motion.div>
   );
 }
 
 export default function ServicesSection() {
-  const [activeIndex, setActiveIndex] = useState(null);
-
   return (
     <section id="services" className="section-padding relative">
-      {/* Ambient glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(34,197,94,0.04) 0%, transparent 70%)' }} />
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(34,197,94,0.04) 0%, transparent 70%)' }}
+      />
 
       <div className="max-w-7xl mx-auto px-6">
         <SectionHeader
           eyebrow="Our Services"
-          title="The Full Ecosystem"
-          subtitle="Every service designed to compound. Click any card to explore deliverables."
+          title="Our Services"
+          subtitle="Every service designed to compound — full deliverables at a glance."
         />
 
-        <motion.div
-          layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {services.map((service, i) => (
-            <motion.div
-              key={service.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-              viewport={{ once: true }}
-            >
-              <ServiceSlab
-                service={service}
-                isActive={activeIndex === i}
-                onClick={() => setActiveIndex(activeIndex === i ? null : i)}
-                index={i}
-              />
-            </motion.div>
+            <ServiceSlab key={service.title} service={service} index={i} />
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -15,7 +15,7 @@ export default function TestimonialsSection() {
         <SectionHeader
           eyebrow="Client Voices"
           title="What Our Clients Say"
-          subtitle="Feedback from teams we have built for across the Garden Route and South Africa."
+          subtitle="Feedback from clients we have built for across the Globe, no project is too big or too small."
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

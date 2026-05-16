@@ -19,7 +19,7 @@ export default function WorkSection() {
         <SectionHeader
           eyebrow="Recent Work"
           title="Results, Not Promises"
-          subtitle="Real builds across hospitality, insurance, healthcare, and booking platforms in the Garden Route and beyond."
+          subtitle="Real builds across hospitality, insurance, healthcare, ecommerce and more. Talk to us about your business or project needs."
         />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
