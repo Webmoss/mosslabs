@@ -46,6 +46,8 @@ Open the URL Netlify prints (usually **http://localhost:8888**). The contact for
 
    Mark only `RESEND_API_KEY` as secret. The repo configures `SECRETS_SCAN_OMIT_KEYS` for sender/inbox vars when they appear in public UI or email templates.
 
+   **Contact form on Netlify:** Do **not** set `VITE_CONTACT_FUNCTION_URL` in Netlify (it is dev-only and will break production if it points at `localhost`). After changing env vars, trigger a **new deploy** so the site rebuilds. Ensure `RESEND_API_KEY` and `RESEND_FROM` apply to **Functions** (not only Builds) in Netlify → Environment variables → scopes.
+
 ## Scripts
 
 - `npm run dev` — Vite dev server
