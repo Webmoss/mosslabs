@@ -1,7 +1,17 @@
 import { Resend } from 'resend';
 import { buildClientConfirmationEmail, buildInternalNotificationEmail } from './lib/contactEmails.mjs';
 
-const MAX = { name: 120, email: 254, company: 200, service_interest: 80, message: 8000, budget: 80 };
+const MAX = {
+  name: 120,
+  email: 254,
+  company: 200,
+  service_interest: 80,
+  project_summary: 2000,
+  timeline: 120,
+  budget: 80,
+  reference_links: 1000,
+  message: 8000,
+};
 
 function json(statusCode, body, extraHeaders = {}) {
   return {
@@ -93,8 +103,11 @@ export const handler = async (event) => {
     const email = trim(body.email, MAX.email).toLowerCase();
     const company = trim(body.company, MAX.company);
     const service_interest = trim(body.service_interest, MAX.service_interest);
-    const message = trim(body.message, MAX.message);
+    const project_summary = trim(body.project_summary, MAX.project_summary);
+    const timeline = trim(body.timeline, MAX.timeline);
     const budget = trim(body.budget, MAX.budget);
+    const reference_links = trim(body.reference_links, MAX.reference_links);
+    const message = trim(body.message, MAX.message);
 
     if (!name || !email || !message) {
       return json(400, { ok: false, message: 'Name, email, and message are required.' });
@@ -111,8 +124,11 @@ export const handler = async (event) => {
       email,
       company,
       service_interest,
-      message,
+      project_summary,
+      timeline,
       budget,
+      reference_links,
+      message,
       supportEmail,
     });
 
@@ -136,8 +152,11 @@ export const handler = async (event) => {
         email,
         company,
         service_interest,
-        message,
+        project_summary,
+        timeline,
         budget,
+        reference_links,
+        message,
       });
       const sendInternal = await resend.emails.send({
         from,

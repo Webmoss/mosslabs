@@ -128,7 +128,7 @@ export default function HeroSection() {
           >
             <span className="text-gradient block">Cultivating</span>
             <span className="text-moss-dew block">Digital</span>
-            <span className="text-gradient block">Infrastructure</span>
+            <span className="text-gradient block">Growth</span>
           </motion.h1>
 
           {/* Sub */}
@@ -138,7 +138,7 @@ export default function HeroSection() {
             transition={{ duration: 0.7, delay: 0.7 }}
             className="text-moss-mist text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed text-pretty"
           >
-            We grow your digital presence from the ground up — websites, hosting, ecommerce, SEO and AI automation engineered for sustainable growth.
+            We grow your digital presence from the ground up. <br/>Websites, hosting, ecommerce, SEO, Google services and AI automation engineered for sustainable growth.
           </motion.p>
 
           {/* CTAs */}

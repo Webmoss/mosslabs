@@ -16,7 +16,7 @@ function unescapeHtml(s) {
     .replace(/&#039;/g, "'");
 }
 
-/** @param {{ name: string; email: string; company?: string; service_interest?: string; message: string; budget?: string; supportEmail?: string }} p */
+/** @param {{ name: string; email: string; company?: string; service_interest?: string; project_summary?: string; timeline?: string; budget?: string; reference_links?: string; message: string; supportEmail?: string }} p */
 export function buildClientConfirmationEmail(p) {
   const name = escapeHtml(p.name);
   const supportEmail = escapeHtml(p.supportEmail || '');
@@ -25,8 +25,11 @@ export function buildClientConfirmationEmail(p) {
   const summaryRows = [
     p.company?.trim() && ['Company', escapeHtml(p.company.trim())],
     p.service_interest?.trim() && ['Service interest', escapeHtml(p.service_interest.trim())],
+    p.project_summary?.trim() && ['Project', escapeHtml(p.project_summary.trim())],
+    p.timeline?.trim() && ['Timeline', escapeHtml(p.timeline.trim())],
     p.budget?.trim() && ['Budget range', escapeHtml(p.budget.trim())],
-    p.message?.trim() && ['Your message', escapeHtml(p.message.trim())],
+    p.reference_links?.trim() && ['References', escapeHtml(p.reference_links.trim())],
+    p.message?.trim() && ['Additional notes', escapeHtml(p.message.trim())],
   ].filter(Boolean);
 
   const summaryHtml = summaryRows.length
@@ -153,7 +156,7 @@ You received this email because a contact form was submitted using ${p.email}. I
   return { subject, html, text };
 }
 
-/** @param {{ name: string; email: string; company?: string; service_interest?: string; message: string; budget?: string }} p */
+/** @param {{ name: string; email: string; company?: string; service_interest?: string; project_summary?: string; timeline?: string; budget?: string; reference_links?: string; message: string }} p */
 export function buildInternalNotificationEmail(p) {
   const subject = `[Contact] ${p.name}`;
   const rows = [
@@ -161,7 +164,10 @@ export function buildInternalNotificationEmail(p) {
     ['Email', p.email],
     ['Company', p.company || '—'],
     ['Service', p.service_interest || '—'],
+    ['Project', p.project_summary || '—'],
+    ['Timeline', p.timeline || '—'],
     ['Budget', p.budget || '—'],
+    ['References', p.reference_links || '—'],
     ['Message', p.message],
   ];
   const html = `<!DOCTYPE html><html><body style="font-family:system-ui,sans-serif;line-height:1.5;color:#0f172a;">

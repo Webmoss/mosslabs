@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Globe, Clock, ArrowRight, CheckCircle, ListChecks, Sparkles } from 'lucide-react';
+import { Mail, Globe, Clock, ArrowRight, CheckCircle, ListChecks } from 'lucide-react';
 import SectionHeader from '@/components/mosslabs/SectionHeader';
 import { submitContactForm } from '@/api/contact';
 import { CONTACT_EMAIL } from '@/config/site';
@@ -35,10 +35,33 @@ const briefTips = [
   'Links to sites or brands you admire',
 ];
 
+const budgetOptions = [
+  'Under R10,000',
+  'R10,000 – R25,000',
+  'R25,000 – R50,000',
+  'R50,000+',
+  'Not sure yet',
+];
+
+const initialForm = {
+  name: '',
+  email: '',
+  company: '',
+  service_interest: '',
+  project_summary: '',
+  timeline: '',
+  budget: '',
+  reference_links: '',
+  message: '',
+};
+
+const inputClass =
+  'w-full bg-[rgba(10,32,24,0.6)] border border-[rgba(34,197,94,0.15)] rounded-xl px-4 py-3 text-moss-dew text-sm placeholder:text-moss-mist focus:outline-none focus:border-[rgba(34,197,94,0.5)] transition-colors';
+
+const labelClass = 'font-mono text-xs text-moss-mist uppercase tracking-wider block mb-2';
+
 export default function ContactSection() {
-  const [form, setForm] = useState({
-    name: '', email: '', company: '', service_interest: '', message: '', budget: ''
-  });
+  const [form, setForm] = useState(initialForm);
   const [honeypot, setHoneypot] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -86,16 +109,24 @@ export default function ContactSection() {
             aria-label="How we work with new enquiries"
           >
             <div className="glass-card gradient-border rounded-2xl overflow-hidden h-full flex flex-col">
-              <div className="p-6 md:p-7 border-b border-[rgba(34,197,94,0.12)]">
+              <div className="p-6 md:p-7 border-b border-[rgba(34,197,94,0.12)] bg-[rgba(34,197,94,0.03)]">
                 <div className="flex items-center gap-2 mb-3">
-                  <Sparkles size={16} className="text-moss-neon" aria-hidden />
+                  <ListChecks size={16} className="text-moss-neon" aria-hidden />
                   <span className="font-mono text-xs text-moss-neon uppercase tracking-widest">
-                    After you submit
+                    Help us quote faster
                   </span>
                 </div>
-                <p className="text-moss-dew text-sm leading-relaxed">
-                  No automated ticket number — your note lands with our team and gets a thoughtful reply.
+                <p className="text-moss-dew text-sm leading-relaxed mb-3">
+                  The more context you share in the form, the sharper our first reply can be.
                 </p>
+                <ul className="space-y-2 list-none m-0 p-0">
+                  {briefTips.map((tip) => (
+                    <li key={tip} className="flex items-start gap-2 text-xs text-moss-mist leading-relaxed">
+                      <span className="mt-1.5 w-1 h-1 rounded-full bg-moss-neon shrink-0" aria-hidden />
+                      {tip}
+                    </li>
+                  ))}
+                </ul>
               </div>
 
               <ol className="p-6 md:p-7 space-y-5 border-b border-[rgba(34,197,94,0.12)] flex-1 list-none m-0">
@@ -109,23 +140,6 @@ export default function ContactSection() {
                   </li>
                 ))}
               </ol>
-
-              <div className="p-6 md:p-7 border-b border-[rgba(34,197,94,0.12)] bg-[rgba(34,197,94,0.03)]">
-                <div className="flex items-center gap-2 mb-3">
-                  <ListChecks size={16} className="text-moss-neon" aria-hidden />
-                  <span className="font-mono text-xs text-moss-mist uppercase tracking-widest">
-                    Help us quote faster
-                  </span>
-                </div>
-                <ul className="space-y-2 list-none m-0 p-0">
-                  {briefTips.map((tip) => (
-                    <li key={tip} className="flex items-start gap-2 text-xs text-moss-mist leading-relaxed">
-                      <span className="mt-1.5 w-1 h-1 rounded-full bg-moss-neon shrink-0" aria-hidden />
-                      {tip}
-                    </li>
-                  ))}
-                </ul>
-              </div>
 
               <div className="p-6 md:p-7 space-y-4">
                 <a
@@ -188,7 +202,7 @@ export default function ContactSection() {
                   type="button"
                   onClick={() => {
                     setSubmitted(false);
-                    setForm({ name: '', email: '', company: '', service_interest: '', message: '', budget: '' });
+                    setForm(initialForm);
                     setHoneypot('');
                   }}
                   className="btn-ghost-moss text-sm mt-2"
@@ -259,14 +273,62 @@ export default function ContactSection() {
                 </div>
 
                 <div>
-                  <label className="font-mono text-xs text-moss-mist uppercase tracking-wider block mb-2">Message *</label>
+                  <label className={labelClass}>What are you building? *</label>
+                  <textarea
+                    required
+                    value={form.project_summary}
+                    onChange={(e) => handleChange('project_summary', e.target.value)}
+                    placeholder="Describe the project and who it is for..."
+                    rows={3}
+                    className={`${inputClass} resize-none`}
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className={labelClass}>Ideal launch / deadline</label>
+                    <input
+                      value={form.timeline}
+                      onChange={(e) => handleChange('timeline', e.target.value)}
+                      placeholder="e.g. Q3 2026 or ASAP"
+                      className={inputClass}
+                    />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Budget range</label>
+                    <select
+                      value={form.budget}
+                      onChange={(e) => handleChange('budget', e.target.value)}
+                      className={inputClass}
+                    >
+                      <option value="" style={{ background: '#030F0A' }}>Select a range (optional)</option>
+                      {budgetOptions.map((b) => (
+                        <option key={b} value={b} style={{ background: '#030F0A' }}>{b}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label className={labelClass}>Reference links</label>
+                  <input
+                    type="text"
+                    value={form.reference_links}
+                    onChange={(e) => handleChange('reference_links', e.target.value)}
+                    placeholder="Sites or brands you admire (optional)"
+                    className={inputClass}
+                  />
+                </div>
+
+                <div>
+                  <label className={labelClass}>Anything else? *</label>
                   <textarea
                     required
                     value={form.message}
-                    onChange={e => handleChange('message', e.target.value)}
-                    placeholder="Tell us about your project..."
-                    rows={4}
-                    className="w-full bg-[rgba(10,32,24,0.6)] border border-[rgba(34,197,94,0.15)] rounded-xl px-4 py-3 text-moss-dew text-sm placeholder:text-moss-mist focus:outline-none focus:border-[rgba(34,197,94,0.5)] transition-colors resize-none"
+                    onChange={(e) => handleChange('message', e.target.value)}
+                    placeholder="Goals, constraints, questions for us..."
+                    rows={3}
+                    className={`${inputClass} resize-none`}
                   />
                 </div>
 
