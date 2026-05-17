@@ -44,7 +44,9 @@ Open the URL Netlify prints (usually **http://localhost:8888**). The contact for
 
    Mark only `RESEND_API_KEY` as secret. The repo configures `SECRETS_SCAN_OMIT_KEYS` for sender/inbox vars when they appear in public UI or email templates.
 
-   **Contact form:** Delete `VITE_CONTACT_FUNCTION_URL` from Netlify if it exists (old deploys baked `localhost:8888` into the JS). After env changes, use **Deploys → Clear cache and deploy**. Ensure `RESEND_API_KEY` and `RESEND_FROM` apply to **Functions** scope.
+   **Contact form:** Delete `VITE_CONTACT_FUNCTION_URL` from Netlify if it exists. After env changes, use **Deploys → Clear cache and deploy**. Ensure `RESEND_API_KEY` and `RESEND_FROM` are available to **Functions** (and **Deploy previews** if you test on `*.netlify.app`).
+
+   **502 on submit:** The function runs but Resend rejected the send. In [Resend → Domains](https://resend.com/domains), verify **mosslabs.co.za** (DNS records). `RESEND_FROM` must use that domain, e.g. `Moss Labs <info@mosslabs.co.za>`. Until the domain is verified, Resend cannot send confirmation emails to form visitors. Check **Netlify → Functions → contact** logs for the exact Resend error.
 
 ## Scripts
 
