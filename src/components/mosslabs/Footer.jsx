@@ -2,10 +2,23 @@
 // import { Github, Twitter, Linkedin, Instagram, Code2 } from 'lucide-react';
 import { Code2 } from 'lucide-react';
 
-const footerLinks = {
-  Services: ['Website Design', 'Hosting', 'Ecommerce', 'SEO', 'AI Implementation', 'Custom Builds'],
-  Company: ['About', 'Work', 'Blog', 'Careers'],
-  Legal: ['Privacy Policy', 'Terms of Service', 'Cookie Policy'],
+const serviceLinks = [
+  ['Website Design', 'Hosting', 'Ecommerce'],
+  ['SEO', 'AI Implementation', 'Custom Builds'],
+];
+
+const companyLinks = ['About', 'Work', 'Blog'];
+
+const sectionMap = {
+  'Website Design': '#services',
+  Hosting: '#services',
+  Ecommerce: '#pricing',
+  SEO: '#services',
+  'AI Implementation': '#services',
+  'Custom Builds': '#services',
+  Work: '#work',
+  Blog: '#blog',
+  About: '#home',
 };
 
 // const socials = [
@@ -56,9 +69,17 @@ export default function Footer() {
                 MOSS<span className="text-moss-neon">LABS</span>
               </span>
             </div>
-            <p className="text-moss-mist text-sm leading-relaxed max-w-xs mb-6">
-              A digital agency cultivating powerful online presences — from simple hosting to full AI implementations.
-            </p>
+            <div className="space-y-3 max-w-sm mb-6">
+              <p className="text-moss-dew text-sm leading-relaxed">
+                Moss Labs is a digital agency cultivating powerful online presences — from managed hosting and polished websites to ecommerce, SEO, and AI implementations built to last.
+              </p>
+              <p className="text-moss-mist text-sm leading-relaxed">
+                We grow your stack from the ground up: strategy, design, development, and ongoing care so your brand stays fast, findable, and ready to scale.
+              </p>
+              <p className="text-moss-mist text-xs leading-relaxed font-mono tracking-wide">
+                Partnering with clients worldwide.
+              </p>
+            </div>
             {/* <div className="flex items-center gap-3">
               {socials.map(({ Icon, href, label }) => (
                 <motion.a
@@ -75,33 +96,51 @@ export default function Footer() {
             </div> */}
           </div>
 
-          {/* Links */}
-          {Object.entries(footerLinks).map(([group, links]) => (
-            <div key={group}>
-              <div className="font-mono text-xs text-moss-neon uppercase tracking-widest mb-4">{group}</div>
-              <ul className="space-y-2">
-                {links.map(link => (
-                  <li key={link}>
-                    <button
-                      onClick={() => {
-                        const sectionMap = {
-                          'Website Design': '#services', 'Hosting': '#services',
-                          'Ecommerce': '#pricing', 'SEO': '#services',
-                          'AI Implementation': '#services', 'Custom Builds': '#services',
-                          'Work': '#work', 'Blog': '#blog', 'About': '#home',
-                        };
-                        const target = sectionMap[link];
-                        if (target) scrollTo(target);
-                      }}
-                      className="text-moss-mist hover:text-moss-dew text-sm transition-colors duration-300"
-                    >
-                      {link}
-                    </button>
-                  </li>
-                ))}
-              </ul>
+          {/* Services — two columns */}
+          <div className="lg:col-span-2">
+            <div className="font-mono text-xs text-moss-neon uppercase tracking-widest mb-4">Services</div>
+            <div className="grid grid-cols-2 gap-x-8 gap-y-2">
+              {serviceLinks.map((column, colIndex) => (
+                <ul key={colIndex} className="space-y-2 list-none m-0 p-0">
+                  {column.map((link) => (
+                    <li key={link}>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const target = sectionMap[link];
+                          if (target) scrollTo(target);
+                        }}
+                        className="text-moss-mist hover:text-moss-dew text-sm transition-colors duration-300 text-left"
+                      >
+                        {link}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              ))}
             </div>
-          ))}
+          </div>
+
+          {/* Company */}
+          <div>
+            <div className="font-mono text-xs text-moss-neon uppercase tracking-widest mb-4">Company</div>
+            <ul className="space-y-2 list-none m-0 p-0">
+              {companyLinks.map((link) => (
+                <li key={link}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const target = sectionMap[link];
+                      if (target) scrollTo(target);
+                    }}
+                    className="text-moss-mist hover:text-moss-dew text-sm transition-colors duration-300"
+                  >
+                    {link}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
         {/* Bottom */}
