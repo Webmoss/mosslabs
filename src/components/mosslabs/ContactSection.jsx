@@ -196,7 +196,7 @@ export default function ContactSection() {
                 >
                   <CheckCircle size={48} className="text-moss-neon" />
                 </motion.div>
-                <h3 className="font-space font-bold text-moss-dew text-2xl">Message Received!</h3>
+                <h3 className="font-space font-bold text-moss-dew text-2xl">Message Sent</h3>
                 <p className="text-moss-mist">We will reply within one business day. Check your inbox for our confirmation.</p>
                 <button
                   type="button"
