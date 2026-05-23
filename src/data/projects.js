@@ -8,7 +8,7 @@ export const projects = [
     img: '/images/CabsCarHire.jpg',
     url: 'https://www.cabs.co.za',
     tags: ['Booking', 'Ecommerce', 'Custom Build'],
-    metric: 'Online Reservations',
+    metric: 'Custom Booking System',
   },
   {
     title: 'Dune Beach House',
@@ -18,7 +18,7 @@ export const projects = [
     img: '/images/DuneBeachHouse.jpg',
     url: 'https://www.dunebeachhouse.co.za/',
     tags: ['Website Design', 'Hosting', 'SEO'],
-    metric: 'Direct Bookings',
+    metric: 'Booking Integrations',
   },
   {
     title: 'Espresso Concepts',
@@ -38,7 +38,7 @@ export const projects = [
     img: '/images/GRHCC.jpg',
     url: 'https://www.medicalaidspecialists.com/',
     tags: ['Website Design', 'Hosting', 'GMB'],
-    metric: 'Member Enquiries',
+    metric: 'Healthcare Insurance',
   },
   {
     title: 'Garden Route Life & Investment',
@@ -58,6 +58,6 @@ export const projects = [
     img: '/images/SBS.jpg',
     url: 'https://specialisedbrokerservices.co.za/',
     tags: ['Website Design', 'Insurance', 'SEO'],
-    metric: 'Quote Requests',
+    metric: 'Insurance Enquiries',
   },
 ];

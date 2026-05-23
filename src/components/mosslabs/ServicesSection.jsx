@@ -113,8 +113,8 @@ export default function ServicesSection() {
       <div className="max-w-7xl mx-auto px-6">
         <SectionHeader
           eyebrow="Our Services"
-          title="Our Services"
-          subtitle="Every service designed to compound — full deliverables at a glance."
+          title="Web Services"
+          subtitle="Web services designed to compound — full deliverables at a glance."
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
