@@ -60,4 +60,34 @@ export const projects = [
     tags: ['Website Design', 'Insurance', 'SEO'],
     metric: 'Insurance Enquiries',
   },
+  {
+    title: 'Sumba Adventure Resort',
+    category: 'Hospitality',
+    description:
+      'Beachfront resort in East Sumba — accommodation tiers, gallery, surf and travel content, and a clear book-now path for international guests.',
+    img: '/images/SumbaAdventureResort.jpg',
+    url: 'https://www.sumbaadventureresort.com/',
+    tags: ['Website Design', 'Hospitality', 'Booking'],
+    metric: 'Bali Resort',
+  },
+  {
+    title: 'Van Bros Construction',
+    category: 'Construction',
+    description:
+      'Garden Route Stonemasons — portfolio-led site showcasing slate and stone work, services, and project stories for new builds, landscaping, and restorations.',
+    img: '/images/VanBrosConstruction.jpg',
+    url: 'https://www.vanbrosconstruction.co.za/',
+    tags: ['Website Design', 'SEO', 'Portfolio'],
+    metric: 'Construction Services',
+  },
+  {
+    title: 'George Arts Theatre',
+    category: 'Arts & Culture',
+    description:
+      'Community Arts Theatre — show promotion, online ticketing, auditions, membership, and volunteer calls to keep live performance visible in George.',
+    img: '/images/GeorgeArtsTheatre.jpg',
+    url: 'https://www.georgeartstheatre.co.za/',
+    tags: ['Website Design', 'Events', 'Non-profit'],
+    metric: 'Ticket Booking System',
+  },
 ];
