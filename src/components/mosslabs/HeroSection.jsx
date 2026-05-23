@@ -175,9 +175,9 @@ export default function HeroSection() {
             className="mt-20 grid grid-cols-3 gap-4 md:gap-0 max-w-xl mx-auto glass-card rounded-2xl px-4 py-6 md:px-8"
           >
             {[
-              { value: '50+', label: 'Sites Launched' },
-              { value: '100%', label: 'Client Retention' },
-              { value: '3x', label: 'Avg. Growth' },
+              { value: '10x', label: 'Avg. Organic Growth' },
+              { value: '50%+', label: 'Conversion Uplift' },
+              { value: '3x', label: 'Qualified Leads' },
             ].map((stat, i) => (
               <div
                 key={stat.label}
