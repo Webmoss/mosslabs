@@ -15,7 +15,7 @@ export default function Home() {
   const [selectedPost, setSelectedPost] = useState(null);
 
   return (
-    <div className="min-h-screen mesh-bg">
+    <div className="mesh-bg min-h-screen w-full min-w-0 overflow-x-clip">
       <ScrollProgress />
       <Navbar />
       <HeroSection />

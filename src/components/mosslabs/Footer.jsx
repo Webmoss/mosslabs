@@ -40,10 +40,15 @@ export default function Footer() {
       style={{ background: 'linear-gradient(to bottom, #030F0A, #081A12)' }}
     >
       {/* Background Logo */}
-      <div className="absolute inset-0 flex items-end justify-center pointer-events-none overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 flex max-w-full items-end justify-center overflow-hidden">
         <div
-          className="font-space font-black text-[20vw] leading-none select-none"
-          style={{ color: 'rgba(34,197,94,0.03)', letterSpacing: '-0.05em' }}
+          className="max-w-full font-space font-black leading-none select-none"
+          style={{
+            color: 'rgba(34,197,94,0.03)',
+            letterSpacing: '-0.05em',
+            fontSize: 'min(20vw, 14rem)',
+            whiteSpace: 'nowrap',
+          }}
         >
           MOSSLABS
         </div>

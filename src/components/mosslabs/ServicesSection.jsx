@@ -104,9 +104,9 @@ function ServiceSlab({ service, index }) {
 
 export default function ServicesSection() {
   return (
-    <section id="services" className="section-padding relative">
+    <section id="services" className="section-padding relative overflow-x-clip">
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[min(37.5rem,100vw)] w-[min(37.5rem,100vw)] max-w-full -translate-x-1/2 -translate-y-1/2 rounded-full"
         style={{ background: 'radial-gradient(circle, rgba(34,197,94,0.04) 0%, transparent 70%)' }}
       />
 

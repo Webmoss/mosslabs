@@ -41,7 +41,7 @@ export default function HeroSection() {
     <section
       ref={containerRef}
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative flex min-h-screen w-full min-w-0 max-w-full items-center justify-center overflow-hidden"
       style={{
         background: `
           radial-gradient(ellipse 80% 70% at ${mousePos.x}% ${mousePos.y}%, rgba(34,197,94,0.06) 0%, transparent 60%),
