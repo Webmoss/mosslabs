@@ -38,12 +38,12 @@ export default function Navbar() {
             : 'py-6'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto w-full min-w-0 px-4 sm:px-6 flex items-center justify-between gap-2 sm:gap-4">
           {/* Logo */}
           <motion.a
             href="#"
             onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-            className="flex items-center gap-3 group"
+            className="flex min-w-0 items-center gap-2 sm:gap-3 group"
             whileHover={{ scale: 1.02 }}
           >
             <motion.div
@@ -52,13 +52,13 @@ export default function Navbar() {
             >
               <Code2 size={18} className="text-moss-neon" strokeWidth={2} />
             </motion.div>
-            <span className="font-space font-bold text-moss-dew text-xl tracking-tight">
+            <span className="font-space font-bold text-moss-dew text-lg sm:text-xl tracking-tight truncate">
               MOSS<span className="text-moss-neon">LABS</span>
             </span>
           </motion.a>
 
-          {/* Desktop Links */}
-          <div className="hidden md:flex items-center gap-8">
+          {/* Desktop Links — lg+ avoids crowding / horizontal scroll on tablets (md) */}
+          <div className="hidden lg:flex items-center gap-6 xl:gap-8">
             {navLinks.map((link) => (
               <motion.button
                 key={link.label}
@@ -73,7 +73,7 @@ export default function Navbar() {
           </div>
 
           {/* CTA */}
-          <div className="hidden md:block">
+          <div className="hidden lg:block shrink-0">
             <motion.button
               onClick={() => scrollTo('#contact')}
               className="btn-moss text-sm"
@@ -86,7 +86,10 @@ export default function Navbar() {
 
           {/* Mobile Menu Toggle */}
           <motion.button
-            className="md:hidden text-moss-dew"
+            type="button"
+            aria-expanded={menuOpen}
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            className="lg:hidden shrink-0 text-moss-dew p-1 -mr-1"
             onClick={() => setMenuOpen(!menuOpen)}
             whileTap={{ scale: 0.9 }}
           >
