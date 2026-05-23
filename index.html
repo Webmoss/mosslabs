@@ -3,6 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <title>Moss Labs — Web, ecommerce, SEO &amp; AI for growing teams</title>
     <meta
       name="description"
@@ -28,6 +30,12 @@
       property="og:image"
       content="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=630&fit=crop&q=80"
     />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Moss Labs — abstract green gradient suggesting digital growth and clarity."
+    />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta
@@ -42,10 +50,44 @@
       name="twitter:image"
       content="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=630&fit=crop&q=80"
     />
+    <meta
+      name="twitter:image:alt"
+      content="Moss Labs — abstract green gradient suggesting digital growth and clarity."
+    />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="manifest" href="/manifest.json" />
     <meta name="google-site-verification" content="eow4Nb-Td717vO8fHhMytiPZkDO1XzfFk3-h1cbNmVg" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://mosslabs.co.za/#organization",
+            "name": "Moss Labs",
+            "alternateName": "MossLabs",
+            "url": "https://mosslabs.co.za/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://mosslabs.co.za/favicon.svg"
+            },
+            "description": "Moss Labs designs and builds fast websites, ecommerce, SEO, and practical AI workflows. Based in South Africa, partnering globally.",
+            "email": "info@mosslabs.co.za",
+            "areaServed": ["ZA", "Worldwide"]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://mosslabs.co.za/#website",
+            "url": "https://mosslabs.co.za/",
+            "name": "Moss Labs",
+            "description": "Design, build, and grow digital products with a team focused on performance, clarity, and measurable outcomes.",
+            "inLanguage": "en-ZA",
+            "publisher": { "@id": "https://mosslabs.co.za/#organization" }
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

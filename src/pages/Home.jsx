@@ -16,15 +16,23 @@ export default function Home() {
 
   return (
     <div className="mesh-bg min-h-screen w-full min-w-0 overflow-x-clip">
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[300] focus:rounded-lg focus:bg-moss-neon focus:px-4 focus:py-2 focus:font-space focus:text-sm focus:font-semibold focus:text-moss-void focus:outline-none focus:ring-2 focus:ring-moss-dew focus:ring-offset-2 focus:ring-offset-moss-void"
+      >
+        Skip to main content
+      </a>
       <ScrollProgress />
       <Navbar />
-      <HeroSection />
-      <ServicesSection />
-      <WorkSection />
-      <TestimonialsSection />
-      <PricingSection />
-      <BlogSection onPostClick={setSelectedPost} />
-      <ContactSection />
+      <main id="main" tabIndex={-1} className="outline-none">
+        <HeroSection />
+        <ServicesSection />
+        <WorkSection />
+        <TestimonialsSection />
+        <PricingSection />
+        <BlogSection onPostClick={setSelectedPost} />
+        <ContactSection />
+      </main>
       <Footer />
       <BlogPostModal post={selectedPost} onClose={() => setSelectedPost(null)} />
     </div>

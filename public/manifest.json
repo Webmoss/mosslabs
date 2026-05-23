@@ -1,8 +1,11 @@
 {
+  "id": "/",
   "name": "Moss Labs",
   "short_name": "Moss Labs",
+  "lang": "en-ZA",
   "description": "Web, ecommerce, SEO, and AI implementation for growing teams.",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#030F0A",
   "theme_color": "#030F0A",

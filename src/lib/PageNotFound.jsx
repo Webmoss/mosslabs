@@ -1,8 +1,25 @@
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Home } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function PageNotFound() {
+  useEffect(() => {
+    const robotsMeta = document.querySelector('meta[name="robots"]');
+    const previousRobots = robotsMeta?.getAttribute('content') ?? 'index,follow';
+    if (robotsMeta) {
+      robotsMeta.setAttribute('content', 'noindex, nofollow');
+    }
+    const previousTitle = document.title;
+    document.title = 'Page not found | Moss Labs';
+    return () => {
+      if (robotsMeta) {
+        robotsMeta.setAttribute('content', previousRobots);
+      }
+      document.title = previousTitle;
+    };
+  }, []);
+
   return (
     <div
       className="min-h-screen flex items-center justify-center p-6 relative overflow-hidden"
@@ -59,7 +76,7 @@ export default function PageNotFound() {
         >
           404
         </motion.div>
-        <h2 className="font-space font-bold text-moss-dew text-2xl mb-3">Page Not Found</h2>
+        <h1 className="font-space font-bold text-moss-dew text-2xl mb-3">Page Not Found</h1>
         <p className="text-moss-mist text-sm mb-8">
           This path doesn't exist in our ecosystem. Let's get you back to solid ground.
         </p>
