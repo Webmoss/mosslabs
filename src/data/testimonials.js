@@ -8,7 +8,7 @@ export const testimonials = [
     avatar: 'JK',
   },
   {
-    name: 'Gary Grimes',
+    name: 'Melisa Grimes',
     role: 'Dune Beach House, Wilderness',
     project: 'Dune Beach House',
     text: 'The new site captures the feel of the guesthouse and makes it easy for guests to explore rooms and get in touch. Enquiries are clearer and more consistent than before.',
