@@ -23,7 +23,12 @@ export default function Navbar() {
   const scrollTo = (href) => {
     setMenuOpen(false);
     const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      // Not on the home page (e.g. a /blog/* route): navigate home to the section.
+      window.location.href = `/${href}`;
+    }
   };
 
   return (
@@ -41,8 +46,13 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto w-full min-w-0 px-4 sm:px-6 flex items-center justify-between gap-2 sm:gap-4">
           {/* Logo */}
           <motion.a
-            href="#"
-            onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            href="/"
+            onClick={(e) => {
+              if (window.location.pathname === '/') {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
+            }}
             className="flex min-w-0 items-center gap-2 sm:gap-3 group"
             whileHover={{ scale: 1.02 }}
           >

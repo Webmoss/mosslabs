@@ -1,3 +1,85 @@
+DirectoryIndex index.html
+
+# ----------------------------------------------------------------------
+# Force HTTPS (Apache / xneelo)
+# https://xneelo.co.za/help-centre/control-panel/force-https-using-a-htaccess-file/
+# ----------------------------------------------------------------------
 RewriteEngine On
 RewriteCond %{HTTPS} off
-RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# ----------------------------------------------------------------------
+# Protect sensitive files (config + dotfiles). PHP also guards the config,
+# this is defense-in-depth so the raw file can never be served.
+# ----------------------------------------------------------------------
+<FilesMatch "(^\.|contact-config(\.example)?\.php$|composer\.(json|lock)$|package(-lock)?\.json$)">
+  Require all denied
+</FilesMatch>
+
+# ----------------------------------------------------------------------
+# Serve prerendered pages at clean, extensionless URLs (e.g. /blog/<slug>
+# resolves to /blog/<slug>.html) — no trailing-slash redirect, so the URL
+# matches the page's canonical. Must run before the SPA fallback.
+# ----------------------------------------------------------------------
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI}.html -f
+RewriteRule ^ %{REQUEST_URI}.html [L]
+
+# ----------------------------------------------------------------------
+# React SPA routing: serve real files (assets, lib/contact.php, sitemap, etc.);
+# send everything else to index.html so client-side routes resolve.
+# ----------------------------------------------------------------------
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ /index.html [L]
+
+# ----------------------------------------------------------------------
+# Compression (faster loads, better Core Web Vitals / SEO)
+# ----------------------------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml
+  AddOutputFilterByType DEFLATE application/javascript application/x-javascript
+  AddOutputFilterByType DEFLATE application/json application/xml
+  AddOutputFilterByType DEFLATE image/svg+xml application/rss+xml
+  AddOutputFilterByType DEFLATE font/ttf font/otf font/woff font/woff2 application/font-woff
+</IfModule>
+
+# ----------------------------------------------------------------------
+# Caching: hashed build assets are immutable; HTML/data stay fresh.
+# ----------------------------------------------------------------------
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  # Long cache for fingerprinted static assets
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+
+  # Keep entry/document and crawl files fresh
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType application/xml "access plus 1 hour"
+  ExpiresByType application/manifest+json "access plus 1 week"
+</IfModule>
+
+<IfModule mod_headers.c>
+  # Immutable, fingerprinted assets
+  <FilesMatch "\.(css|js|woff2|jpg|jpeg|png|webp|svg|ico)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  # Never cache the SPA shell so deploys are picked up immediately
+  <FilesMatch "(index\.html)$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+
+  # Baseline security headers
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+</IfModule>

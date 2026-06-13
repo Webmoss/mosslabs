@@ -37,12 +37,18 @@ export default function WorkSection() {
               aria-label={`${project.title} — visit live site (opens in new tab)`}
             >
               <div className="relative h-52 overflow-hidden bg-moss-deep">
-                <img
-                  src={project.img}
-                  alt={`${project.title} website preview`}
-                  className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                  loading="lazy"
-                />
+                <picture className="contents">
+                  <source srcSet={project.img.replace(/\.jpg$/, '.webp')} type="image/webp" />
+                  <img
+                    src={project.img}
+                    alt={`${project.title} website preview`}
+                    width="1200"
+                    height="684"
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                  />
+                </picture>
                 <div
                   className="absolute inset-0"
                   style={{

@@ -5,54 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Fallback title only; per-route head tags are managed by react-helmet-async and baked in at prerender. -->
     <title>Moss Labs — Web, ecommerce, SEO &amp; AI for growing teams</title>
-    <meta
-      name="description"
-      content="Moss Labs designs and builds fast websites, ecommerce, SEO, and practical AI workflows. Based in South Africa, partnering globally."
-    />
-    <link rel="canonical" href="https://mosslabs.co.za/" />
     <meta name="theme-color" content="#030F0A" />
-    <meta name="robots" content="index,follow" />
-
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="en_ZA" />
-    <meta property="og:url" content="https://mosslabs.co.za/" />
-    <meta property="og:site_name" content="Moss Labs" />
+    <meta name="author" content="Moss Labs" />
     <meta
-      property="og:title"
-      content="Moss Labs — Web, ecommerce, SEO &amp; AI for growing teams"
-    />
-    <meta
-      property="og:description"
-      content="Design, build, and grow digital products with a team focused on performance, clarity, and measurable outcomes."
-    />
-    <meta
-      property="og:image"
-      content="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=630&fit=crop&q=80"
-    />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta
-      property="og:image:alt"
-      content="Moss Labs — abstract green gradient suggesting digital growth and clarity."
-    />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="Moss Labs — Web, ecommerce, SEO &amp; AI for growing teams"
-    />
-    <meta
-      name="twitter:description"
-      content="Design, build, and grow digital products with a team focused on performance, clarity, and measurable outcomes."
-    />
-    <meta
-      name="twitter:image"
-      content="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=630&fit=crop&q=80"
-    />
-    <meta
-      name="twitter:image:alt"
-      content="Moss Labs — abstract green gradient suggesting digital growth and clarity."
+      name="keywords"
+      content="web design South Africa, website development, ecommerce, SEO, web hosting, AI automation, Jeffreys Bay"
     />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -63,7 +22,7 @@
         "@context": "https://schema.org",
         "@graph": [
           {
-            "@type": "Organization",
+            "@type": ["Organization", "ProfessionalService"],
             "@id": "https://mosslabs.co.za/#organization",
             "name": "Moss Labs",
             "alternateName": "MossLabs",
@@ -72,9 +31,35 @@
               "@type": "ImageObject",
               "url": "https://mosslabs.co.za/favicon.svg"
             },
+            "image": "https://mosslabs.co.za/favicon.svg",
+            "slogan": "Cultivating digital growth",
             "description": "Moss Labs designs and builds fast websites, ecommerce, SEO, and practical AI workflows. Based in South Africa, partnering globally.",
             "email": "info@mosslabs.co.za",
-            "areaServed": ["ZA", "Worldwide"]
+            "address": {
+              "@type": "PostalAddress",
+              "addressCountry": "ZA"
+            },
+            "areaServed": ["ZA", "Worldwide"],
+            "knowsAbout": [
+              "Web Design",
+              "Web Development",
+              "Ecommerce",
+              "Search Engine Optimization",
+              "Web Hosting",
+              "AI Implementation"
+            ],
+            "hasOfferCatalog": {
+              "@type": "OfferCatalog",
+              "name": "Moss Labs Services",
+              "itemListElement": [
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Website Design" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Hosting" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Ecommerce" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "SEO" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "AI Implementation" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Custom Builds" } }
+              ]
+            }
           },
           {
             "@type": "WebSite",

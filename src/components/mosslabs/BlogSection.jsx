@@ -1,7 +1,14 @@
-import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { ArrowRight, Clock } from 'lucide-react';
 import { blogPosts } from '@/data/blogPosts';
+
+const MotionLink = motion.create(Link);
+
+const publishedPosts = blogPosts
+  .filter((p) => p.published)
+  .sort((a, b) => Date.parse(b.created_date ?? '') - Date.parse(a.created_date ?? ''))
+  .slice(0, 6);
 
 const categoryColors = {
   'AI & Automation': 'text-emerald-400',
@@ -12,23 +19,27 @@ const categoryColors = {
   'Business': 'text-green-300',
 };
 
-function BlogCard({ post, index, onClick }) {
+function BlogCard({ post, index }) {
   const fallbackImg = `https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80&auto=format&fit=crop`;
 
   return (
-    <motion.div
+    <MotionLink
+      to={`/blog/${post.slug}`}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
       viewport={{ once: true }}
-      onClick={() => onClick(post)}
-      className="glass-card glass-card-hover gradient-border rounded-2xl overflow-hidden cursor-pointer group"
+      className="glass-card glass-card-hover gradient-border rounded-2xl overflow-hidden cursor-pointer group block"
     >
       {/* Image */}
       <div className="relative h-48 overflow-hidden">
         <img
           src={post.cover_image || fallbackImg}
           alt={post.title}
+          width="800"
+          height="450"
+          loading="lazy"
+          decoding="async"
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
         <div className="absolute inset-0" style={{
@@ -56,30 +67,17 @@ function BlogCard({ post, index, onClick }) {
             <Clock size={11} />
             {post.read_time || 4} min read
           </div>
-          <div className="flex items-center gap-1 text-moss-neon text-xs font-medium group-hover:gap-2 transition-all duration-300">
+          <span className="flex items-center gap-1 text-moss-neon text-xs font-medium group-hover:gap-2 transition-all duration-300">
             Read more <ArrowRight size={12} />
-          </div>
+          </span>
         </div>
       </div>
-    </motion.div>
+    </MotionLink>
   );
 }
 
-export default function BlogSection({ onPostClick }) {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const sorted = blogPosts
-      .filter((p) => p.published)
-      .sort(
-        (a, b) =>
-          Date.parse(b.created_date ?? '') - Date.parse(a.created_date ?? '')
-      )
-      .slice(0, 6);
-    setPosts(sorted);
-    setLoading(false);
-  }, []);
+export default function BlogSection() {
+  const posts = publishedPosts;
 
   return (
     <section id="blog" className="section-padding relative">
@@ -105,25 +103,15 @@ export default function BlogSection({ onPostClick }) {
           </a>
         </motion.div>
 
-        {loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {Array(3).fill(0).map((_, i) => (
-              <div key={i} className="glass-card rounded-2xl h-72 animate-pulse" />
-            ))}
-          </div>
-        ) : posts.length === 0 ? (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-center py-16 glass-card rounded-2xl"
-          >
+        {posts.length === 0 ? (
+          <div className="text-center py-16 glass-card rounded-2xl">
             <div className="text-4xl mb-4">🌿</div>
             <p className="text-moss-mist font-space">Articles are growing... Check back soon.</p>
-          </motion.div>
+          </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {posts.map((post, i) => (
-              <BlogCard key={post.id} post={post} index={i} onClick={onPostClick} />
+              <BlogCard key={post.id} post={post} index={i} />
             ))}
           </div>
         )}

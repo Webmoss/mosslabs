@@ -1,30 +1,19 @@
-import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Home } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import Seo from '@/components/Seo';
 
 export default function PageNotFound() {
-  useEffect(() => {
-    const robotsMeta = document.querySelector('meta[name="robots"]');
-    const previousRobots = robotsMeta?.getAttribute('content') ?? 'index,follow';
-    if (robotsMeta) {
-      robotsMeta.setAttribute('content', 'noindex, nofollow');
-    }
-    const previousTitle = document.title;
-    document.title = 'Page not found | Moss Labs';
-    return () => {
-      if (robotsMeta) {
-        robotsMeta.setAttribute('content', previousRobots);
-      }
-      document.title = previousTitle;
-    };
-  }, []);
-
   return (
     <div
       className="min-h-screen flex items-center justify-center p-6 relative overflow-hidden"
       style={{ background: '#030F0A' }}
     >
+      <Seo
+        title="Page not found — Moss Labs"
+        description="The page you're looking for doesn't exist."
+        noindex
+      />
       {/* Animated background */}
       <div className="absolute inset-0"
         style={{

@@ -1,6 +1,6 @@
 # Moss Labs
 
-Marketing site built with React and Vite.
+Marketing site built with React and Vite, deployed as static files on **xneelo** (or any Apache host with PHP for the contact form).
 
 ## Local development
 
@@ -18,39 +18,54 @@ npm run dev:clean
 
 That stops anything on ports 5173/5174 and starts Vite again.
 
-### Contact form (needs Netlify Functions + Resend)
+### Contact form (PHP + SMTP on the server)
 
-1. Copy `.env.example` to `.env` and set `RESEND_API_KEY`, `RESEND_FROM`, `PUBLIC_CONTACT_EMAIL`, `VITE_PUBLIC_CONTACT_EMAIL`, and optionally `CONTACT_INTERNAL_EMAIL`.
-2. Install Netlify CLI: `npm i -g netlify-cli`
-3. Run the full stack (site + contact API):
+The UI posts JSON to **`src/config/site.js`** → `CONTACT_FORM_ENDPOINT` (default **`/lib/contact.php`**).
 
-```bash
-npm run dev:netlify
-```
+On the server, **`contact-config.php`** defines **`mail_to`**, **`mail_from`**, and an **`smtp`** block. When **`smtp.host`**, **`smtp.username`**, and **`smtp.password`** are set, mail is sent over **SMTP (AUTH LOGIN)**; otherwise PHP **`mail()`** is used as a fallback.
 
-Open the URL Netlify prints (usually **http://localhost:8888**). The contact form will work there.
+Typical **xneelo** outgoing settings ([SSL/TLS for email](https://xneelo.co.za/help-centre/email/ssl/), [email settings](https://xneelo.co.za/help-centre/email/email-settings/)):
 
-**Split setup (optional):** Terminal 1: `npm run dev:netlify` · Terminal 2: `npm run dev` (Vite proxies `/.netlify/functions` to port 8888).
+- **Server:** `smtp.yourdomain.co.za` (or the hostname shown in your control panel if the domain form does not work)
+- **Port:** `465` with **`encryption`:** **`ssl`**
+- **Username:** full mailbox address (e.g. `noreply@mosslabs.co.za`)
+- **Password:** that mailbox’s password
 
-## Netlify deployment
+Copy **`public/contact-config.example.php`** to **`contact-config.php`** in the **site root** (next to `index.html`), fill in **`smtp`**, and deploy **`lib/contact.php`** + **`lib/moss-smtp.php`**.
 
-1. Connect the repo in Netlify; the included `netlify.toml` runs `npm run build` and publishes `dist`.
-2. Set environment variables (Site settings → Environment variables):
-   - `RESEND_API_KEY` — from [Resend](https://resend.com) (keep secret)
-   - `RESEND_FROM` — verified sender, e.g. `Moss Labs <info@yourdomain.com>`
-   - `VITE_PUBLIC_CONTACT_EMAIL` — shown on the site, e.g. `info@yourdomain.com`
-   - `PUBLIC_CONTACT_EMAIL` — same address; used in confirmation emails
-   - `CONTACT_INTERNAL_EMAIL` — optional inbox for inquiry copies (can match the address above)
+**Local Vite (`npm run dev`):** there is no PHP by default. To test end-to-end: `npm run build`, add **`dist/contact-config.php`** at the site root (next to **`dist/index.html`**), run `php -S 127.0.0.1:8080 -t dist`, temporarily set **`CONTACT_FORM_ENDPOINT`** in **`src/config/site.js`** to `http://127.0.0.1:8080/lib/contact.php`, restart Vite, then submit. Revert the URL before deploying.
 
-   Mark only `RESEND_API_KEY` as secret. The repo configures `SECRETS_SCAN_OMIT_KEYS` for sender/inbox vars when they appear in public UI or email templates.
+## SEO / prerendering
 
-   **Contact form:** Delete `VITE_CONTACT_FUNCTION_URL` from Netlify if it exists. After env changes, use **Deploys → Clear cache and deploy**. Ensure `RESEND_API_KEY` and `RESEND_FROM` are available to **Functions** (and **Deploy previews** if you test on `*.netlify.app`).
+`npm run build` is a three-step pipeline: it builds the client bundle, builds a
+server bundle (`src/entry-server.jsx`), then runs **`scripts/prerender.js`** to
+write fully-rendered static HTML for each route (home + every published
+`/blog/<slug>`). This means crawlers and social scrapers get real markup instead
+of an empty SPA shell. The prerender also regenerates **`dist/sitemap.xml`**.
 
-   **502 on submit:** The function runs but Resend rejected the send. In [Resend → Domains](https://resend.com/domains), verify **mosslabs.co.za** (DNS records). `RESEND_FROM` must use that domain, e.g. `Moss Labs <info@mosslabs.co.za>`. Until the domain is verified, Resend cannot send confirmation emails to form visitors. Check **Netlify → Functions → contact** logs for the exact Resend error.
+- Per-route `<title>`/meta/canonical/Open Graph are managed by
+  **`src/components/Seo.jsx`** (react-helmet-async) and baked into the static HTML.
+- Blog posts (`src/data/blogPosts.js`) render as crawlable pages at
+  **`/blog/<slug>`**; the markdown renderer is code-split so it never ships in the
+  home-page bundle.
+- The social share image is self-hosted at **`/og-image.jpg`** (1200×630).
+- Project images ship as **WebP** with JPG fallback (`<picture>`).
+
+## xneelo deployment
+
+1. **Build:** `npm run build`
+2. Upload the contents of **`dist/`** into your domain’s web root (e.g. `public_html`), including **`.htaccess`**, the prerendered **`blog/`** pages, **`lib/contact.php`**, **`lib/moss-smtp.php`**, and **`contact-config.example.php`**.
+3. In File Manager, copy **`contact-config.example.php`** → **`contact-config.php`**. Set **`mail_to`**, **`mail_from`**, **`mail_from_name`**, and the **`smtp`** block (host, port, encryption, username, password) using your xneelo mailbox details.
+4. Ensure **PHP** is enabled for the domain. **`contact-config.php`** must sit in the **site root** (same level as **`index.html`**); **`lib/contact.php`** loads it from there.
+5. If sending fails, verify SMTP host/port/SSL in the [xneelo email help centre](https://xneelo.co.za/help-centre/email/email-settings/) and that **`smtp.username`** is the **full email address**.
+
+**Routing:** `.htaccess` first serves prerendered pages at clean, extensionless URLs (`/blog/<slug>` → `/blog/<slug>.html`, no trailing-slash redirect), then falls back to `index.html` for any other unknown path so client-side routes still resolve. Real files (JS/CSS/images, **`lib/contact.php`**, etc.) are served normally.
 
 ## Scripts
 
 - `npm run dev` — Vite dev server
-- `npm run build` — production build
-- `npm run preview` — preview the production build
+- `npm run build` — production build (client + SSR bundle + static prerender)
+- `npm run build:client` — client bundle only (skips prerender)
+- `npm run prerender` — run the prerender step against existing build output
+- `npm run preview` — preview the production build (no PHP unless you proxy or change `CONTACT_FORM_ENDPOINT` in `src/config/site.js`)
 - `npm run lint` — ESLint
